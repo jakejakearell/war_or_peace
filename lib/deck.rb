@@ -1,5 +1,5 @@
 class Deck
-  attr_reader :cards, :high
+  attr_accessor :cards, :high
 
   def initialize(cards)
     @cards = cards
@@ -25,8 +25,12 @@ class Deck
 
   end
 
-  def remove_card(card)
-    @cards.delete(card)
+  def remove_card(card='')
+    if card == ''
+      @cards.delete_at(0)
+    else
+      @cards.delete(card)
+    end
   end
 
   def add_card(card)
