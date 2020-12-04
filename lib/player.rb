@@ -1,5 +1,4 @@
-require './lib/deck'
-require './lib/card'
+
 
 class Player
   attr_accessor :name, :deck, :has_lost
