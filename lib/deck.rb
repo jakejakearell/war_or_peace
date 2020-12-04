@@ -1,9 +1,9 @@
 class Deck
-  attr_accessor :cards, :high
+  attr_accessor :cards
 
   def initialize(cards)
     @cards = cards
-    @high = []
+
   end
 
   def rank_of_card_at(index_number)
@@ -11,17 +11,20 @@ class Deck
   end
 
   def high_ranking_cards
+    high = []
     @cards.each do |card|
       if card.rank >= 11
-        @high.insert(-1, card)
+        high.insert(-1, card)
       end
     end
-    @high
+    high
   end
 
   def percent_high_ranking
-    self.high_ranking_cards
-    ((@high.length*1.00)/@cards.length) *100.00
+
+    high = self.high_ranking_cards
+
+    ((high.length*1.00)/@cards.length) *100.00
 
   end
 
