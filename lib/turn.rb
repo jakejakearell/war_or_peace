@@ -8,8 +8,10 @@ class Turn
   end
 
   def type
-
-    if @player1.deck.cards[0].rank == @player2.deck.cards[0].rank && @player1.deck.cards[2].rank  == @player2.deck.cards[2].rank
+    # raise
+    if @player2.deck.cards == []
+      @player2.has_lost = true
+    elsif @player1.deck.cards[0].rank == @player2.deck.cards[0].rank && @player1.deck.cards[2].rank  == @player2.deck.cards[2].rank
       :mutually_assured_destruction
     elsif @player1.deck.cards[0].rank == @player2.deck.cards[0].rank
       :war
@@ -35,6 +37,7 @@ class Turn
       end
 
     else
+      
       "No Winner"
 
     end
@@ -61,7 +64,7 @@ class Turn
       @spoils_of_wars << spoil2
 
     end
-
+    # require 'pry'; binding pry
 
   end
 
