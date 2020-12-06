@@ -11,7 +11,8 @@ class Player
   end
 
   def has_lost?
-    # require 'pry'; binding pry
+
+
     if @deck.cards == []
       @has_lost = true
     end
