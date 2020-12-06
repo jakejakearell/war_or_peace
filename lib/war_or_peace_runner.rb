@@ -6,7 +6,7 @@ require './turn'
 def deck_compiler
 
   cards = []
-  name_rank = {'1': 1,
+  name_rank = {
                '2': 2,
                '3': 3,
                '4': 4,
@@ -18,7 +18,9 @@ def deck_compiler
                '10': 10,
                'Jack': 11,
                'Queen': 12,
-               'King':13
+               'King':13,
+               'Ace': 14
+
                             }
 
     name_rank.each do |name, rank|
@@ -32,24 +34,25 @@ def deck_compiler
       cards << card4
     end
 
-    deck = Deck.new(cards.shuffle)
-
+    # deck = Deck.new(cards.shuffle)
+    cards.shuffle
 
 end
 
 def start
-  card = Card.new(:spade, "1", 1)
-  card2 = Card.new(:club, "1", 1)
-  card3 = Card.new(:heart, "1", 1)
-  card4 = Card.new(:heart, "4", 4)
-  cards = [card, card2, card3, card4]
-  deck = Deck.new(cards)
 
-  deck1 = deck_compiler
 
-  player1 = Player.new("sethie", deck1)
+  deck = deck_compiler
 
-  player2 = Player.new("jeffie", deck)
+  player_1_stack = deck[0..25]
+  player_2_stack = deck[26..53]
+
+  deck_half_1 = Deck.new(player_1_stack)
+  deck_half_2 = Deck.new(player_2_stack)
+
+  player1 = Player.new("sethie", deck_half_1)
+
+  player2 = Player.new("jeffie",deck_half_2)
 
   answer = ''
 
@@ -70,13 +73,28 @@ def start
     puts "#{turn.type}"
 
     player1_hand = player1.deck.cards[0..2]
+
+
+    player1_hand_preview = []
+
+    player1_hand.each do |card|
+      player1_hand_preview << card.rank
+    end
+
+    puts "#{player1.name} hand preview:\n#{player1_hand_preview}\n
+    "
+
+
+
     player2_hand = player2.deck.cards[0..2]
+    player2_hand_preview = []
 
-    puts "#{player1.name} hand preview"
-    player1_hand.each {|card| puts card.value}
+    player2_hand.each do |card|
+      player2_hand_preview << card.rank
+    end
 
-    puts "#{player2.name} hand preview"
-    player2_hand.each {|card| puts card.value}
+    puts "#{player2.name} hand preview:\n#{player2_hand_preview}\n"
+    puts "\n"
 
 
 
@@ -85,24 +103,39 @@ def start
     if winner.class == String
       puts "NO winner"
     else
-      puts "#{winner.name} won this round. They will get"
+      puts "#{winner.name} won this round. They will get:"
     end
-    # turn.spoils_of_wars.each {|war| puts war.value}
+
     turn.pile_cards
 
-    turn.spoils_of_wars.each {|card| puts card.rank}
+    show_spoils = []
+
+    turn.spoils_of_wars.each do |card|
+      if card == nil
+        show_spoils << ''
+      else
+        show_spoils <<  card.rank
+      end
+    end
+
+    puts "#{show_spoils}"
+
 
     turn.award_spoils(winner)
 
-    player1.has_lost?
-    player2.has_lost?
-    # puts player1.deck
+    puts "#{player1.name} has #{player1.deck.cards.length} cards left"
+    puts "#{player2.name} has #{player2.deck.cards.length} cards left"
+
+    puts "------------------------------------------------------------------"
+
+
+
 
 
 
 
   end
-  puts "wweeeee"
+  puts "\ncongrats #{winner.name}\ntruly a titan of war "
 end
 
 start
