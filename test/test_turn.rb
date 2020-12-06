@@ -193,14 +193,6 @@ class TurnTest < Minitest::Test
 
     assert_equal cards, turn.player2.deck.cards
 
-
-
-
-
-
   end
-
-
-
 
 end
