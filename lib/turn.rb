@@ -9,15 +9,14 @@ class Turn
 
   def type
 
-    if @player2.deck.cards == [] || @player1.deck.cards == []
-      @player2.has_lost = true
-    elsif @player1.deck.rank_of_card_at(0) == @player2.deck.rank_of_card_at(0) && @player1.deck.rank_of_card_at(2)  == @player2.deck.rank_of_card_at(2)
+    if @player1.deck.rank_of_card_at(0) == @player2.deck.rank_of_card_at(0) && @player1.deck.rank_of_card_at(2)  == @player2.deck.rank_of_card_at(2)
       :mutually_assured_destruction
     elsif @player1.deck.rank_of_card_at(0) == @player2.deck.rank_of_card_at(0)
       :war
     else
       :basic
     end
+
   end
 
   def winner
@@ -37,7 +36,6 @@ class Turn
       end
 
     else
-
       "No Winner"
 
     end
@@ -58,20 +56,24 @@ class Turn
       end
 
     else
-      spoil = @player1.deck.cards.shift
-      @spoils_of_wars << spoil
+      spoil1 = @player1.deck.cards.shift
+      @spoils_of_wars << spoil1
 
       spoil2 = @player2.deck.cards.shift
       @spoils_of_wars << spoil2
 
     end
-    # require 'pry'; binding pry
+
 
   end
 
   def award_spoils(winner)
     @spoils_of_wars.shuffle.each do |spoil|
-      winner.deck.cards << spoil
+      if spoil == nil
+        0
+      else
+        winner.deck.cards << spoil
+      end
     end
 
     @spoils_of_wars = []
