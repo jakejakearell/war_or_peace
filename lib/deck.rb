@@ -24,20 +24,15 @@ class Deck
     high
   end
 
-  def percent_high_ranking
-
+  def percent_high_ranking_cards
     high = self.high_ranking_cards
 
     ((high.length*1.00)/@cards.length) *100.00
 
   end
 
-  def remove_card(card='')
-    if card == ''
+  def remove_card
       @cards.delete_at(0)
-    else
-      @cards.delete(card)
-    end
   end
 
   def add_card(card)
