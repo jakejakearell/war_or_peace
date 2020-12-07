@@ -10,41 +10,40 @@ class DeckTest < Minitest::Test
     @card3 = Card.new(:heart, '5', 5)
     @card4 = Card.new(:heart, 'Ace', 14)
     @cards = [@card1, @card2, @card3, @card4]
+
     @deck = Deck.new(@cards)
+
   end
 
   def test_rank
-
     assert_equal 12, @deck.rank_of_card_at(0)
+
   end
 
-  def test_highest_rank
-
+  def test_high_rank_cards
     assert_equal [@card1, @card4], @deck.high_ranking_cards
 
   end
 
-  def test_percent
-
-    assert_equal 50.0, @deck.percent_high_ranking
-
-  end
-#
-  def test_remove
-
-    @deck.remove_card(@card4)
-
-    assert_equal @deck.cards, [@card1, @card2, @card3]
+  def test_percent_high_rank_cards
+    assert_equal 50.0, @deck.percent_high_ranking_cards
 
   end
 
-  def test_add
+  def test_remove_card
+    @deck.remove_card
 
+    assert_equal @deck.cards, [@card2, @card3, @card4]
+
+  end
+
+  def test_add_card
     card5 = Card.new(:heart, '6', 6)
-
     @deck.add_card(card5)
+    cards = [@card1, @card2, @card3, @card4, card5]
 
-    assert_equal @deck.cards, [@card1, @card2, @card3, @card4, card5]
+    assert_equal @deck.cards, cards
   end
+
 
 end
