@@ -17,10 +17,8 @@ class CardGenerator
                      'Jack': 11,
                      'Queen': 12,
                      'King':13,
-                     'Ace': 14
-                                  }
+                     'Ace': 14}
   end
-
 
   def deck_compiler
     @name_rank.each do |name, rank|
@@ -35,7 +33,6 @@ class CardGenerator
     end
 
     @cards.shuffle
+
   end
-
-
 end
