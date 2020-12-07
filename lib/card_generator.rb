@@ -23,8 +23,6 @@ class CardGenerator
 
 
   def deck_compiler
-
-
     @name_rank.each do |name, rank|
       card = Card.new(:spade, name, rank)
       card2 = Card.new(:club, name, rank)
