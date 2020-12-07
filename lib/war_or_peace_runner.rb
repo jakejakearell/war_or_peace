@@ -1,13 +1,12 @@
 require './card'
+require './card_generator'
 require './deck'
 require './player'
 require './turn'
 
 
 def start
-  card = Card.new
-
-  deck = card.deck_compiler
+  deck = CardGenerator.new.deck_compiler
 
   player_1_stack = deck[0..25]
   player_2_stack = deck[26..53]
@@ -15,8 +14,8 @@ def start
   deck_half_1 = Deck.new(player_1_stack)
   deck_half_2 = Deck.new(player_2_stack)
 
-  player1 = Player.new("sethie", deck_half_1)
-  player2 = Player.new("jeffie",deck_half_2)
+  player1 = Player.new("seth", deck_half_1)
+  player2 = Player.new("jeff",deck_half_2)
 
   turn = Turn.new(player1, player2)
 
@@ -44,7 +43,7 @@ def start
     player1_hand_preview = []
     player1_hand = player1.deck.cards[0..2]
     player1_hand.each do |card|
-      player1_hand_preview << card.rank
+      player1_hand_preview << card.value
     end
     puts "#{player1.name.capitalize} hand preview:\n#{player1_hand_preview}\n
     "
