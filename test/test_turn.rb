@@ -19,7 +19,6 @@ class TurnTest < Minitest::Test
     @cards1 = [@card1, @card7, @card3, @card8]
     @cards2 = [@card5, @card6, @card2, @card4]
 
-
     @deck1 = Deck.new(@cards1)
     @deck2 = Deck.new(@cards2)
 
@@ -32,18 +31,15 @@ class TurnTest < Minitest::Test
 
 
   def test_it_has_readable_attributes
-
     assert_equal @player1, @turn.player1
     assert_equal  @player2, @turn.player2
-
     assert_equal [], @turn.spoils_of_wars
 
   end
 
 
   def test_turn_type_basic
-
-    assert_equal :basic, @turn.type
+    assert_equal :basic, @turn.type_of_turn
 
   end
 
@@ -59,7 +55,7 @@ class TurnTest < Minitest::Test
     player2 = Player.new("jeedd", deck2)
     turn = Turn.new(player1, player2)
 
-    assert_equal :war, turn.type
+    assert_equal :war, turn.type_of_turn
 
   end
 
@@ -75,7 +71,7 @@ class TurnTest < Minitest::Test
     player2 = Player.new("jeedd", deck2)
     turn = Turn.new(player1, player2)
 
-    assert_equal :mutually_assured_destruction, turn.type
+    assert_equal :mutually_assured_destruction, turn.type_of_turn
 
   end
 
@@ -136,12 +132,11 @@ class TurnTest < Minitest::Test
     turn.pile_cards
     cards = [@card2, @card1, @card7, @card6, @card3, @card4]
 
-    assert_equal cards , turn.spoils_of_wars
+    assert_equal cards, turn.spoils_of_wars
 
   end
 
   def test_card_pile_mad
-
     cards1 = [@card2, @card1, @card7, @card8]
     cards2 = [@card6, @card3, @card5, @card4]
 
@@ -161,20 +156,17 @@ class TurnTest < Minitest::Test
   end
 
   def test_award_spoils_basic
-
     winner = @turn.winner
     @turn.pile_cards
     @turn.award_spoils(winner)
 
 
-
-    assert_equal [@card7, @card3, @card8, @card1, @card5], @turn.player1.deck.cards
-    assert_equal [@card6, @card2, @card4], @turn.player2.deck.cards
+    assert_equal 5, @turn.player1.deck.cards.length
+    assert_equal 3, @turn.player2.deck.cards.length
 
   end
 
   def test_award_spoils_war
-
     cards1 = [@card2, @card1, @card7, @card8]
     cards2 = [@card6, @card3, @card4, @card5]
 
@@ -189,9 +181,8 @@ class TurnTest < Minitest::Test
     turn.pile_cards
     turn.award_spoils(winner)
 
-    cards = [@card5, @card2, @card1, @card7, @card6, @card3, @card4]
-
-    assert_equal cards, turn.player2.deck.cards
+    assert_equal 7, player2.deck.cards.length
+    assert_equal @card8, player1.deck.cards[0]
 
   end
 
