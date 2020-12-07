@@ -5,10 +5,10 @@ class Turn
     @player1 = player1
     @player2 = player2
     @spoils_of_wars = []
+
   end
 
-  def type
-
+  def type_of_turn
     if @player1.deck.rank_of_card_at(0) == @player2.deck.rank_of_card_at(0) && @player1.deck.rank_of_card_at(2)  == @player2.deck.rank_of_card_at(2)
       :mutually_assured_destruction
     elsif @player1.deck.rank_of_card_at(0) == @player2.deck.rank_of_card_at(0)
@@ -20,15 +20,14 @@ class Turn
   end
 
   def winner
-
-    if self.type == :basic
+    if self.type_of_turn == :basic
       if @player1.deck.rank_of_card_at(0) > @player2.deck.rank_of_card_at(0)
         @player1
       else
         @player2
       end
 
-    elsif self.type == :war
+    elsif self.type_of_turn == :war
       if @player1.deck.rank_of_card_at(2) > @player2.deck.rank_of_card_at(2)
         @player1
       else
@@ -42,11 +41,11 @@ class Turn
   end
 
   def pile_cards
-    if self.type == :mutually_assured_destruction
+    if self.type_of_turn == :mutually_assured_destruction
       @player1.deck.cards.shift(3)
       @player2.deck.cards.shift(3)
 
-    elsif self.type == :war
+    elsif self.type_of_turn == :war
       3.times do
         @spoils_of_wars << @player1.deck.cards.shift
       end
@@ -75,7 +74,7 @@ class Turn
         winner.deck.cards << spoil
       end
     end
-
     @spoils_of_wars = []
+
   end
 end
