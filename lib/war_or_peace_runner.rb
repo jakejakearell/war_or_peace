@@ -22,22 +22,24 @@ def start
 
 
   answer = ''
-  # until answer == 'GO'
-  #   puts "Welcome to War! (or Peace) This game will be played with 52 cards.
-  # The players today are #{player1.name} and #{player2.name}.
-  # Type 'GO' to start the game!
-  # ------------------------------------------------------------------"
-  #
-  #   answer = gets.chomp
-  # end
+  until answer == 'GO'
+    puts "Welcome to War! (or Peace) This game will be played with 52 cards.
+  The players today are #{player1.name} and #{player2.name}.
+  Type 'GO' to start the game!
+  ------------------------------------------------------------------"
+
+    answer = gets.chomp
+    if answer != "GO"
+      puts "we can wait"
+    end
+  end
 
   turn_counter = 0
   until player1.has_lost? || player2.has_lost?
 
-    turn.type
+    turn.type_of_turn
 
-    puts "Turn #{turn_counter}:#{turn.type.capitalize}
-    "
+    puts "Turn #{turn_counter}:#{turn.type_of_turn.capitalize}"
 
     player1_hand_preview = []
     player1_hand = player1.deck.cards[0..2]
@@ -50,7 +52,7 @@ def start
     player2_hand_preview = []
     player2_hand = player2.deck.cards[0..2]
     player2_hand.each do |card|
-      player2_hand_preview << card.rank
+      player2_hand_preview << card.value
     end
     puts "#{player2.name.capitalize} hand preview:\n#{player2_hand_preview}
     "
@@ -88,7 +90,6 @@ def start
       puts "draw"
       break
     end
-
   end
 
   if player1.has_lost?
